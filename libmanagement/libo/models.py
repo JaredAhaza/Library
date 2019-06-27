@@ -7,8 +7,6 @@ class Book(models.Model):
 	An Book class - to describe book in the system.
 	"""
 	title = models.CharField(max_length=200)
-	pub_date = models.DateTimeField('date published')
-	publisher = models.ForeignKey('Publisher', on_delete=models.CASCADE)
 	author = models.ForeignKey('Author', on_delete=models.CASCADE)
 	lend_period = models.ForeignKey('LendPeriods', on_delete=models.CASCADE)
 	page_amount = models.IntegerField()
