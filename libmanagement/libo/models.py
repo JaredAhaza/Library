@@ -96,21 +96,21 @@ class review(models.Model):
 	book = models.ForeignKey(Book, blank=False, null=False, on_delete=models.CASCADE)
 	review = models.CharField(max_length=600, null=False, blank=False)
 	pub_date = models.DateTimeField('date published')
+	
+	def was_published_recently(self):
+		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
-def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+	def __unicode__(self):
+		return 'review: %s...' % self.quotation[0:12]
 
- def __unicode__(self):
-        return 'review: %s...' % self.quotation[0:12]
-
-    def get_full_review(self):
-        return '%s' % self.review
-
-    class Meta:
-        get_latest_by = "creation_date"
-        ordering = ['review']
-        verbose_name = "Review"
-        verbose_name_plural = "Reviews"
+	def get_full_review(self):
+		return '%s' % self.review
+	
+	class Meta:
+		get_latest_by = "creation_date"
+		ordering = ['review']
+		verbose_name = "Review"
+		verbose_name_plural = "Reviews"
 
 
 
@@ -146,7 +146,7 @@ def get_or_create_userprofile(user):
 			up = UserProfile.objects.get(user=user)
 			if up:
 				return up
-			except ObjectDoesNotExist:
+		except ObjectDoesNotExist:
 			pass
 	up = UserProfile(user=user, join_date=timezone.now())
 	up.save()
