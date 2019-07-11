@@ -9,7 +9,7 @@ class Book(models.Model):
 	"""
 	An Book class - to describe book in the system.
 	"""
-	title = models.CharField(max_length=200)
+	title = models.CharField(max_length=50)
 	author = models.ForeignKey('Author', on_delete=models.CASCADE)
 	lend_period = models.ForeignKey('LendPeriods', on_delete=models.CASCADE)
 	page_amount = models.IntegerField()
@@ -121,7 +121,6 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	mobile = models.CharField(max_length=15, null=True, blank=True)
 	website = models.CharField(max_length=50, null=True, blank=True)
-	fb_name = models.CharField(max_length=60, null=True, blank=True)
 	friends = models.ManyToManyField('self', symmetrical=True)
 	join_date = models.DateField()
 	
